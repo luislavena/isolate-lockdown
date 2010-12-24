@@ -1,4 +1,5 @@
 namespace :isolate do
+  desc "Lockdown isolated gems into folder (defaults 'tmp/lockdown')"
   task :lockdown, [:folder] do |t, args|
     include Isolate::Lockdown
 
@@ -24,7 +25,8 @@ namespace :isolate do
     require_paths = []
 
     specs.each do |spec|
-      puts "Locking down #{spec.name} version #{spec.version}"
+      puts "Locking down #{spec.name} version #{spec.version}" if
+        Rake.application.options.trace
 
       base = spec.full_gem_path
 
