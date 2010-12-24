@@ -7,6 +7,7 @@ namespace :isolate do
     folder = args.folder
     safe_folder = "#{folder}.safe"
     temp_folder = "#{folder}.#{$$}"
+    loader_script = File.join(folder, 'paths.rb')
 
     # remove previous safe folder if exists
     when_writing "Removing previous safe folder" do
@@ -57,6 +58,13 @@ namespace :isolate do
 
     FileUtils.mv(folder, safe_folder) if File.exist?(folder)
     FileUtils.mv(temp_folder, folder)
+
+    when_writing("Updating #{loader_script}") do
+      File.open(loader_script, 'w') do |f|
+        require_paths.uniq.each do |path|
+          f.puts "$:.unshift File.expand_path(#{path.inspect})"
+        end
+      end
     end
   end
 end
