@@ -13,12 +13,12 @@ require 'rubygems/package_task'
 GEM_SPEC = Gem::Specification.new do |s|
   # basic information
   s.name    = 'isolate-lockdown'
-  s.version = '0.1.0'
+  s.version = '0.2.0'
   s.platform = Gem::Platform::RUBY
 
   # description and details
-  s.summary     = 'Lockdown your already Isolated gems.'
-  s.description = "Extension to Isolate that extracts dependent gem contents\ninto a single, monolithic directory to reduce Ruby load time."
+  s.summary     = 'Lockdown your isolated gems, give them speed.'
+  s.description = "Extension for Isolate that extracts dependent gem contents\ninto a single, monolithic directory to reduce Ruby load time."
 
   # requirements
   s.required_ruby_version = ">= 1.8.6"
