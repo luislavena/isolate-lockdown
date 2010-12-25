@@ -4,17 +4,13 @@ h1. Isolate-Lockdown
 
 h2. Description
 
-Isolate-Lockdown extends Isolate sandbox behavior with the goal of generating
-a monolithic directory to reduce startup time of your application.
+Isolate-Lockdown extends Isolate sandbox behavior with the goal of generating a monolithic directory to reduce startup time of your application.
 
 h2. What?
 
-Having several gems in Ruby's @$LOAD_PATH@ results in slow require. The more
-bigger your application (with more gems), the longer it will take to start up.
+Having several gems in Ruby's @$LOAD_PATH@ results in slow require. The more bigger your application (with more gems), the longer it will take to start up.
 
-On Rails applications, you can see this performance problem once you deploy
-a new version of code to your server. When the application restart, it can take
-several seconds to respond to the first request.
+On Rails applications, you can see this performance problem once you deploy a new version of code to your server. When the application restart, it can take several seconds to respond to the first request.
 
 h2. Requirements
 
@@ -22,16 +18,13 @@ Isolate, RubyGems and Rake (only for extraction)
 
 h2. How to use it
 
-Isolate-lockdown provides a rake task that allow easy execution from command
-line.
+Isolate-lockdown provides a rake task that allow easy execution from command line.
 
-These instructions assume you already followed Isolate "instructions":https://github.com/jbarnette/isolate
-for using Isolate in your application.
+These instructions assume you already followed Isolate "instructions":https://github.com/jbarnette/isolate for using Isolate in your application.
 
 h3. Depend on @isolate-lockdown@
 
-Since you're using Isolate, you need to define your dependency on this
-extension, please add it:
+Since you're using Isolate, you need to define your dependency on this extension, please add it:
 
 bc. gem 'isolate-lockdown'
 
@@ -45,16 +38,13 @@ Previous step will make available @isolate:lockdown@ rake task:
 
 bc. rake isolate:lockdown[folder]  # Lockdown isolated gems into folder (defaults 'tmp/lockdown')
 
-Once you execute @isolate:lockdown@, it will extract your gems contents into
-the specified _folder_, also generating @paths.rb@ file that will look something
-like this:
+Once you execute @isolate:lockdown@, it will extract your gems contents into the specified _folder_, also generating @paths.rb@ file that will look something like this:
 
 bc. $:.unshift File.expand_path("tmp/lockdown/lib")
 
 h3. Using the lockdown gems in your application
 
-Now, you need to adapt the startup process of your application to use this
-generate file.
+Now, you need to adapt the startup process of your application to use this generate file.
 
 The following is a simple Rails 3 example:
 
@@ -70,33 +60,16 @@ end
 
 h3. Avoid executing during development
 
-Please remember that lockdown is aimed to be used or executed during deployment
-and should not be used during development, as it removes Isolate and itself from
-the equation.
+Please remember that lockdown is aimed to be used or executed during deployment and should not be used during development, as it removes Isolate and itself from the equation.
 
-Not depending on Isolate will render any update to your gem manifest (Isolate)
-useless. Prior reporting bugs, please remove @tmp/lockdown@ directory and try
-again.
+Not depending on Isolate will render any update to your gem manifest (Isolate) useless. Prior reporting bugs, please remove @tmp/lockdown@ directory and try again.
 
 h2. License
 
 Copyright (c) 2010 Luis Lavena.
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
