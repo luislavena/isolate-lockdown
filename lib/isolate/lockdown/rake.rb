@@ -25,7 +25,7 @@ namespace :isolate do
     require_paths = []
 
     specs.each do |spec|
-      puts "Locking down #{spec.name} version #{spec.version}" if
+      puts "Locking down #{spec.name} #{spec.version}" if
         Rake.application.options.trace
 
       base = spec.full_gem_path
@@ -55,6 +55,11 @@ namespace :isolate do
             FileUtils.cp_r(full_lib, lib_dir)
           end
         end
+      end
+
+      # show some progress with big list of gems
+      unless Rake.application.options.trace
+        print "."
       end
     end
 
