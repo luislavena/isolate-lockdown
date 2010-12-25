@@ -25,7 +25,7 @@ namespace :isolate do
     require_paths = []
 
     specs.each do |spec|
-      puts "Locking down #{spec.name} #{spec.version}" if
+      $stdout.puts "Locking down #{spec.name} #{spec.version}" if
         Rake.application.options.trace
 
       base = spec.full_gem_path
@@ -59,11 +59,16 @@ namespace :isolate do
 
       # show some progress with big list of gems
       unless Rake.application.options.trace
-        print "."
+        $stdout.print "."
+        $stdout.flush
       end
     end
 
     FileUtils.mv(folder, safe_folder) if File.exist?(folder)
+
+    # Avoid permission denied issues under Windows
+    sleep(1) if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/
+
     FileUtils.mv(temp_folder, folder)
 
     when_writing("Updating #{loader_script}") do
@@ -73,5 +78,7 @@ namespace :isolate do
         end
       end
     end
+
+    $stdout.puts
   end
 end
